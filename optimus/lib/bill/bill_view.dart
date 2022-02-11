@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+const channel = "com.luluone.lite";
+const platformChannel = MethodChannel(channel);
 
 class BillHome extends StatefulWidget {
   const BillHome({Key? key}) : super(key: key);
@@ -8,6 +12,30 @@ class BillHome extends StatefulWidget {
 }
 
 class _BillHomeState extends State<BillHome> {
+
+  @override
+  void initState() {
+    super.initState();
+    _getParam();
+  }
+
+  var _param = "";
+
+  Future<void> _getParam() async {
+    String param;
+    try {
+      final String result = await platformChannel.invokeMethod('getParam');
+      param = result;
+      print(param);
+    } on PlatformException catch (e) {
+      param = "Failed to get param: '${e.message}'";
+      print(param);
+    }
+
+    setState(() {
+      _param = param;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +45,7 @@ class _BillHomeState extends State<BillHome> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            platformChannel.invokeMethod('exitFlutter');
           },
         ),
         title: Center(
@@ -34,14 +62,14 @@ class _BillHomeState extends State<BillHome> {
                 ),
               ),
               onPressed: () {},
-              child: Row(
+              child:  Row(
                 children: const [
-                  Icon(
+                   Icon(
                     Icons.location_on_outlined,
                     color: Colors.white,
                   ),
                   Text(
-                    'Recharge',
+                    "Recharge",
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -50,8 +78,8 @@ class _BillHomeState extends State<BillHome> {
           ),
         ),
       ),
-      body: const Center(
-        child: Text('Here Recharge'),
+      body:  Center(
+        child: Text(_param),
       ),
     );
   }

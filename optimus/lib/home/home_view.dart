@@ -29,39 +29,37 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xff003a63),
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff003a63),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            _exitFlutter();
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.local_grocery_store_outlined),
             onPressed: () {
-              _exitFlutter();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Cart()),
+              );
             },
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.local_grocery_store_outlined),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Cart()),
-                );
-              },
-            ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children:  const [
+            HomeHeader(),
+            Categories(),
+            TrendingProducts(),
+            Banner(),
+            NewArrivals(),
           ],
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children:  const [
-              HomeHeader(),
-              Categories(),
-              TrendingProducts(),
-              Banner(),
-              NewArrivals(),
-            ],
-          ),
         ),
       ),
     );
