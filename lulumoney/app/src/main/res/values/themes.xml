@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="MyTheme" parent="@style/Theme.Lulumoney">
+    <style name="FlutterTheme" parent="@style/Theme.Lulumoney">
         <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>

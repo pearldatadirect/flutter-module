@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:optimus/home/list.dart';
 import 'package:optimus/home/search.dart';
 import 'package:optimus/values/constant.dart';
@@ -13,8 +14,13 @@ final List<String> imgList = [
   'assets/image/heroImg.png',
   'assets/image/heroImg.png',
 ];
+
+const channel = "com.luluone.lite";
+const platformChannel = MethodChannel(channel);
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
 
   @override
   _HomeState createState() => _HomeState();
@@ -31,7 +37,7 @@ class _HomeState extends State<Home> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              _exitFlutter();
             },
           ),
           actions: <Widget>[
@@ -59,6 +65,10 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void _exitFlutter() {
+    platformChannel.invokeMethod('exitFlutter');
   }
 }
 

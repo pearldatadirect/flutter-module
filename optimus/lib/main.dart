@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:optimus/service/navigation_service.dart';
 import 'package:optimus/utility/router.dart' as router;
 import 'package:optimus/values/routes.dart' as routes;
@@ -49,7 +50,7 @@ class _MainState extends State<Main> {
       navigatorKey: locator<NavigationService>().navigationKey,
       title: 'Connectshop',
       /*navigatorObservers: <NavigatorObserver>[observer],*/
-      debugShowCheckedModeBanner: !kReleaseMode,
+      debugShowCheckedModeBanner: kReleaseMode,
     );
   }
 }
